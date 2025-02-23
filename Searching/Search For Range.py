@@ -42,16 +42,17 @@ def searchForRangeHelper(array, target, left, right, output, goLeft):
             right = mid - 1
         elif target > potMatch:
             left = mid + 1
-        else:
+        else: # when the mid value matches the target value
             if goLeft:
-                if mid == 0 or array[mid - 1] != target:
+                if mid == 0 or array[mid - 1] != target: # will enter only once then exits the function
                     output[0] = mid
                     return
                 else:
-                    right = mid - 1
+                    right = mid - 1 # if the matched mid value is not the first index
             else:
-                if mid == len(array)-1 or array[mid + 1] != target:
+                if mid == len(array)-1 or array[mid + 1] != target: # will enter only once then exits the function
                     output[1] = mid
                     return
                 else:
-                    left = mid + 1
+                    left = mid + 1 # if the matched mid value is not the last index
+
