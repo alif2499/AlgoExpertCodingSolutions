@@ -1,4 +1,4 @@
-# # space = O(n)
+# # time = O(n)
 
 # def searchForRange(array, target):
 #     return searchRangeHelper(array, target, 0, len(array)-1)
@@ -27,7 +27,7 @@
 #     return [-1, -1]
 
 
-# space = O(log(n))
+# time = O(log(n))
 def searchForRange(array, target):
     output = [-1, -1]
     searchForRangeHelper(array, target, 0, len(array)-1, output, True)
