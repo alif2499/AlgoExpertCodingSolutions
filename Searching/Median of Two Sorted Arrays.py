@@ -1,3 +1,5 @@
+# O(log(min(n,m))) time | O(1) space
+
 def medianOfTwoSortedArrays(arrayOne, arrayTwo):
     totalLength = len(arrayOne) + len(arrayTwo)
     if len(arrayOne) <= len(arrayTwo):
@@ -7,17 +9,23 @@ def medianOfTwoSortedArrays(arrayOne, arrayTwo):
     return -1
 
 def medianFinder(array, left, right, length, array2):
-    while left <= right:
+    while True:
         mid = (left + right) // 2
-        firstHalfLength = (mid - left) + 1
-        secondHalflength = ((length - 1) // 2) - firstHalfLength
-        if array[firstHalfLength - 1] < array2[secondHalflength] and array2[secondHalflength - 1] < array[firstHalfLength]:
-            if length % 2 != 0:
-                if array[firstHalfLength - 1] >= array2[secondHalflength - 1]:
-                    return array[firstHalfLength - 1]
-                else:
-                    return array2[secondHalflength - 1]
-        elif array[firstHalfLength - 1] > array2[secondHalflength]:
+        firstHalfLength = mid + 1
+        secondHalflength = ((length - 1) // 2) - firstHalfLength + 1
+
+        smallMaxLeft = array[firstHalfLength - 1] if (firstHalfLength - 1) >= 0 else float("-inf")
+        smallMinRight = array[firstHalfLength] if firstHalfLength < len(array) else float("inf")
+        bigMaxLeft = array2[secondHalflength - 1] if (secondHalflength - 1) >= 0 else float("-inf")
+        bigMinRight = array2[secondHalflength] if secondHalflength < len(array2) else float("inf")
+
+        if smallMaxLeft > bigMinRight:
             right = mid - 1
-        elif array2[secondHalflength - 1] > array[firstHalfLength]:
+        elif bigMaxLeft > smallMinRight:
             left = mid + 1
+        else:
+            if length % 2 != 0:
+                return max(smallMaxLeft, bigMaxLeft)
+            else:
+                return (max(smallMaxLeft, bigMaxLeft) + min(smallMinRight, bigMinRight)) / 2
+        
