@@ -1,3 +1,15 @@
+# Space -> o(1) || Time -> O(nlog(n))
+
+def heapSort(array):
+    array = build_max_heap(array)
+    right = len(array) - 1
+    while right > 0:
+        array[0], array[right] = array[right], array[0]
+        max_heapify(array, right, 0)
+        right -= 1
+    
+    return array
+    
 def max_heapify(array, heap_size, i):
     left = 2 * i
     right = 2 * i + 1
@@ -17,8 +29,5 @@ def build_max_heap(array):
         # print(array[i])
         max_heapify(array, heap_size, i)
     return array
-
-
-
-array = [8, 5, 2, 9, 5, 6, 3]
-print(build_max_heap(array))
+    
+    
