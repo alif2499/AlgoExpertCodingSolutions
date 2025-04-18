@@ -1,14 +1,21 @@
 def optimalFreelancing(jobs):
     jobs.sort(key=lambda job: job["payment"], reverse=True)
-    daySpent = 0
+    daySpent = 7 * [0]
     totalValue = 0
 
     for i in range(len(jobs)):
         # if daySpent <= 7:
-        remaining = jobs[i]["deadline"]
+        deadline = jobs[i]["deadline"]
         value = jobs[i]["payment"]
-        if remaining > daySpent and daySpent <= 7:
-            daySpent += 1
-            totalValue += value
+        while deadline > 0:
+            if deadline > 7:
+                deadline = 7
+            if daySpent [deadline - 1] == 0:
+                daySpent [deadline - 1] = value
+                break
+            else:
+                deadline-=1
+    for i in range(7):
+        totalValue += daySpent[i]
                 
     return totalValue
